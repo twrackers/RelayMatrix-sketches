@@ -22,13 +22,13 @@ byte packetBuffer[16];
 // Define actual packet size.
 #define PKT_SIZE 4
 
-// Define # port expander devices
+// Define # port expander devices.
 #define NUM_MCP 8
 
-// Define number of ports per MCP23017
+// Define number of ports per MCP23017.
 #define PORTS_PER_MCP 4
 
-// Define number of blocks (4 blocks per expander device)
+// Define number of blocks.
 #define NUM_BLK (NUM_MCP * PORTS_PER_MCP)
 
 // Packet format:

@@ -33,6 +33,6 @@ byte BlockControl::read(const byte chan)
     cur = (cur >> shift) & 0xF;
     return (byte) cur;
   } else {
-    return (byte) 0;
+    return (byte) 0xFF;
   }
 }
