@@ -22,4 +22,8 @@ Source and header files Block.cpp and Block.h define the Block class.  A Block o
 
 Source and header files BlockControl.cpp and BlockControl.h define the BlockControl class.  A BlockControl object is a low-level interface to one group of 4 consecutive GPIO pins on a single port expander chip.  The pins are assigned to groups as 15-12, 11-8, 7-4, and 3-0.  So four Block objects can use the same BlockControl object.  This class uses the Adafruit_MCP23017 library.
 
-The lowest level interface to the port expander devices is the Adafruit_MCP23017 library which is available on GitHub.
+My StateMachine library is on GitHub at https://github.com/twrackers/StateMachine-library.
+
+The lowest level interface to the port expander devices is the Adafruit_MCP23017 library which is available on GitHub at https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library.
+
+The Arduino library for the ENC28J60 Ethernet module is located at https://github.com/UIPEthernet/UIPEthernet.
