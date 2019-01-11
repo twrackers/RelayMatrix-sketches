@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include <Adafruit_MCP23017.h>
 
+#define NONE ((byte) 0xFF)
+
 class BlockControl
 {
   private:
@@ -29,7 +31,7 @@ class BlockControl
     // Read 4 bits from port expander,
     // returns in low 4 bits of return value
     // chan as described for write method
-    // returns 0xFF if chan > 3 
+    // returns NONE (0xFF) if chan > 3 
     byte read(const byte chan);
 };
 

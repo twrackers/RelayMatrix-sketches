@@ -13,22 +13,34 @@ byte mac[] = {
 };
 IPAddress ipLocal(10, 0, 0, 123);
 
-// Define port to receive commands.
+// Port to receive commands
 unsigned int portLocal = 4023;
 
-// Allocate receive/transmot buffer.
+// Receive/transmit buffer
 byte packetBuffer[16];
 
-// Define actual packet size.
+// Actual packet size
 #define PKT_SIZE 4
 
-// Define # port expander devices.
-#define NUM_MCP 8
+// Each MCP23017 I2C port expander has 16 GPIO pins.
+// These 16 pins are divided up into 4 consecutive "ports"
+// of 4 pins each.  Each port drives a single relay matrix
+// decoder/driver.
+// MCP23017 port expander can be set to 8 different I2C addresses,
+// 0x20 through 0x27.  If fewer than 8 port expanders are in use,
+// their addresses must be consecutive (although not necessarily
+// physically arranged in order) starting with 0x20.
 
-// Define number of ports per MCP23017.
+// Number of ports per MCP23017
 #define PORTS_PER_MCP 4
 
-// Define number of blocks.
+// Number of port expander devices in use
+// Max 8 may be used, all must have consecutive
+// I2C addresses starting at 0x20.
+#define NUM_MCP 8
+
+// Number of blocks = # expanders * # ports per expander
+// Each 4-bit port controls one block.
 #define NUM_BLK (NUM_MCP * PORTS_PER_MCP)
 
 // Packet format:
@@ -60,9 +72,18 @@ Pulse led(LED_BUILTIN, HIGH, PULSE_MSEC);
 
 void setup()
 {
+  // Create the collections of objects used to control
+  // the relay matrix.
   for (byte mcp = 0; mcp < NUM_MCP; ++mcp) {
+    // Create each port-expander object.
     mcps[mcp] = new Adafruit_MCP23017;
+    // Create a BlockControl object for each port expander.
+    // This allows the port expander to be accessed as 4
+    // 4-bit ports.
     rs[mcp] = new BlockControl(*mcps[mcp], mcp);
+    // For each BlockControl object, create 4 Block objects.
+    // The port expander at address 0x20 will handle blocks
+    // 0-3, address 0x21 will handle blocks 4-7, and so on.
     for (byte port = 0; port < PORTS_PER_MCP; ++port) {
       byte blk = mcp * PORTS_PER_MCP + port;
       blocks[blk] = new Block(*rs[mcp], port);
@@ -70,6 +91,8 @@ void setup()
   }
   
   // Reset the Ethernet module.
+  // Using delay() in setup() is okay because real-time
+  // processes only happen within loop().
   pinMode(ETH_RESET, OUTPUT);
   digitalWrite(ETH_RESET, LOW);
   delay(100);
@@ -80,7 +103,7 @@ void setup()
   Ethernet.begin(mac, ipLocal);
   udp.begin(portLocal);
 
-  // Start I2C on bus expander.
+  // Start I2C on port expanders.
   for (BlockControl* r : rs) {
     r->begin();
   }
@@ -110,16 +133,19 @@ void loop()
       // Skip sequence byte, get block and select bytes.
       byte b = packetBuffer[2];
       byte s = packetBuffer[3];
-      // Trigger the LED pulse.
-      led.trigger();
-      // If the select byte is 0xFF (255)...
-      if (s == 0xFF) {
-        // ... disable block...
-        blocks[b]->enable(false);
-      } else {
-        // ... otherwise, enable block and select channel.
-        blocks[b]->enable(true);
-        blocks[b]->select(s & 0x7);
+      // Is block within range?
+      if (b < NUM_BLK) {
+        // Trigger the LED pulse.
+        led.trigger();
+        // If the select byte is NONE (0xFF or 255)...
+        if (s == NONE) {
+          // ... disable block...
+          blocks[b]->enable(false);
+        } else {
+          // ... otherwise, enable block and select channel.
+          blocks[b]->enable(true);
+          blocks[b]->select(s & 0x7);
+        }
       }
     }
     

@@ -11,8 +11,8 @@ class Block : public StateMachine
   private:
     BlockControl& m_ctrl; // low-level interface
     const byte m_chan;    // channel (0 to 3)
-    byte m_sel;           // current selected output
     byte m_sw;            // new selected output
+    byte m_sel;           // current selected output
     bool m_ena;           // enabled state
     enum {
       eDisabled,          // block is disabled

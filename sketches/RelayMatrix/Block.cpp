@@ -8,7 +8,7 @@ void Block::x_write4()
 Block::Block(BlockControl& ctrl, const byte chan) :
 StateMachine(10, false),
 m_ctrl(ctrl), m_chan(chan),
-m_sel(0), m_sw(0), m_ena(false),
+m_sw(0), m_sel(0), m_ena(false),
 m_state(eDisabled)
 {
 }
