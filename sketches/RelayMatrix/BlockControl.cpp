@@ -1,7 +1,7 @@
 #include "BlockControl.h"
 
 BlockControl::BlockControl(Adafruit_MCP23017& mcp, const byte addr) :
-m_mcp(mcp), m_addr(addr)
+m_mcp(mcp), m_addr(addr & 0x03)
 {
 }
 
