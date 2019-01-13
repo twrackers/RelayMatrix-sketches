@@ -68,7 +68,7 @@ Block* blocks[NUM_BLK];
 Pulse led(LED_BUILTIN, HIGH, PULSE_MSEC);
 
 // GPIO pin connected to Ethernet adapter RESET pin
-#define ETH_RESET 12
+#define ETH_RESET 4
 
 void setup()
 {
