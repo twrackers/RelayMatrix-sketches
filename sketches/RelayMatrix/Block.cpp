@@ -18,6 +18,7 @@ bool Block::update()
   if (StateMachine::update()) {
     if (m_state == eDisabled) {
       if (m_ena) {
+        m_sel = m_sw;
         x_write4();
         m_state = eEnabled;
       }
