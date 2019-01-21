@@ -9,12 +9,12 @@
 
 // Define MAC and IP addresses for the Ethernet adapter.
 byte mac[] = {
-  0x01, 0x23, 0x45, 0x67, 0x89, 0x23
+  0x01, 0x23, 0x45, 0x67, 0x89, 0x24
 };
-IPAddress ipLocal(10, 0, 0, 123);
+IPAddress ipLocal(10, 0, 0, 124);
 
 // Port to receive commands
-unsigned int portLocal = 4023;
+unsigned int portLocal = 4024;
 
 // Receive/transmit buffer
 byte packetBuffer[16];
@@ -67,9 +67,6 @@ Block* blocks[NUM_BLK];
 // Pulse object attached to built-in LED
 Pulse led(LED_BUILTIN, HIGH, PULSE_MSEC);
 
-// GPIO pin connected to Ethernet adapter RESET pin
-#define ETH_RESET 4
-
 void setup()
 {
   // Create the collections of objects used to control
@@ -90,15 +87,6 @@ void setup()
     }
   }
   
-  // Reset the Ethernet module.
-  // Using delay() in setup() is okay because real-time
-  // processes only happen within loop().
-  pinMode(ETH_RESET, OUTPUT);
-  digitalWrite(ETH_RESET, LOW);
-  delay(100);
-  digitalWrite(ETH_RESET, HIGH);
-  delay(1000);
-
   // Start Ethernet module, then UDP processing.
   Ethernet.begin(mac, ipLocal);
   udp.begin(portLocal);
@@ -153,5 +141,7 @@ void loop()
 
   // Update the Pulse and Block state machines.
   led.update();
-  StateMachine::updateAll(blocks, NUM_BLK);
+  for (Block* b : blocks) {
+    b->update();
+  }
 }
