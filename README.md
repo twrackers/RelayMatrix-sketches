@@ -28,9 +28,9 @@ Source and header files **BlockControl.cpp** and **BlockControl.h** define the `
 
 ### Library dependencies ###
 
-My `StateMachine` library is on GitHub at *[https://github.com/twrackers/StateMachine-library](https://github.com/twrackers/StateMachine-library "https://github.com/twrackers/StateMachine-library")*.
+My `StateMachine` library is on GitHub at [https://github.com/twrackers/StateMachine-library](https://github.com/twrackers/StateMachine-library "https://github.com/twrackers/StateMachine-library").
 
-My `Pulse` library is also on GitHub, at *[https://github.com/twrackers/Pulse-library](https://github.com/twrackers/Pulse-library "https://github.com/twrackers/Pulse-library")*.
+My `Pulse` library is also on GitHub, at [https://github.com/twrackers/Pulse-library](https://github.com/twrackers/Pulse-library "https://github.com/twrackers/Pulse-library").
 
 The lowest level interface to the port expander devices is the `Adafruit_MCP23017` library which is available on GitHub at [https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library](https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library "https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library").
 
