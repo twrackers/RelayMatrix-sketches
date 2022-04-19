@@ -1,7 +1,6 @@
 #include <Wire.h>
 #include <UIPEthernet.h>
 
-#include <StateMachine.h>
 #include <Pulse.h>
 
 #include "BlockControl.h"
@@ -53,7 +52,7 @@ byte packetBuffer[16];
 EthernetUDP udp;
 
 // I2C bus expanders, 16 GPIO per device
-Adafruit_MCP23017* mcps[NUM_MCP];
+Adafruit_MCP23X17* mcps[NUM_MCP];
 
 // Block controllers, 1 per expander
 BlockControl* rs[NUM_MCP];
@@ -73,7 +72,7 @@ void setup()
   // the relay matrix.
   for (byte mcp = 0; mcp < NUM_MCP; ++mcp) {
     // Create each port-expander object.
-    mcps[mcp] = new Adafruit_MCP23017;
+    mcps[mcp] = new Adafruit_MCP23X17;
     // Create a BlockControl object for each port expander.
     // This allows the port expander to be accessed as 4
     // 4-bit ports.

@@ -2,20 +2,20 @@
 #define _BLOCK_CONTROL__H_
 
 #include <Arduino.h>
-#include <Adafruit_MCP23017.h>
+#include <Adafruit_MCP23X17.h>
 
 #define NONE ((byte) 0xFF)
 
 class BlockControl
 {
   private:
-    Adafruit_MCP23017& m_mcp; // port expander object
+    Adafruit_MCP23X17& m_mcp; // port expander object
     const byte m_addr;        // 0 to 7 (I2C address 0x20 to 0x27)
 
   public:
     // Constructor
     // addr in range 0 to 7
-    BlockControl(Adafruit_MCP23017& mcp, const byte addr);
+    BlockControl(Adafruit_MCP23X17& mcp, const byte addr);
 
     // Start interface on I2C bus.
     void begin();

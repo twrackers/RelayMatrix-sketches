@@ -1,13 +1,13 @@
 #include "BlockControl.h"
 
-BlockControl::BlockControl(Adafruit_MCP23017& mcp, const byte addr) :
+BlockControl::BlockControl(Adafruit_MCP23X17& mcp, const byte addr) :
 m_mcp(mcp), m_addr(addr & 0x07)
 {
 }
 
 void BlockControl::begin()
 {
-  m_mcp.begin(m_addr);
+  m_mcp.begin_I2C(m_addr);
   m_mcp.writeGPIOAB(0xFFFF);
   for (byte i = 0; i < 16; ++i) {
     m_mcp.pinMode(i, OUTPUT);
