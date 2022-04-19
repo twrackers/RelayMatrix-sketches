@@ -28,10 +28,14 @@ Source and header files **BlockControl.cpp** and **BlockControl.h** define the `
 
 ### Library dependencies ###
 
-My `StateMachine` library is on GitHub at [https://github.com/twrackers/StateMachine-library](https://github.com/twrackers/StateMachine-library "https://github.com/twrackers/StateMachine-library").
+In order to build the `RelayMatrix` executable image, you will need to install a number of Arduino libraries used by the sketch.
 
-My `Pulse` library is also on GitHub, at [https://github.com/twrackers/Pulse-library](https://github.com/twrackers/Pulse-library "https://github.com/twrackers/Pulse-library").
+- My `StateMachine` library is on GitHub at [https://github.com/twrackers/StateMachine-library](https://github.com/twrackers/StateMachine-library "https://github.com/twrackers/StateMachine-library").
 
-The lowest level interface to the port expander devices is the `Adafruit_MCP23017` library which is available on GitHub at [https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library](https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library "https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library").
+- My `OneShot` library is also on GitHub, located at [https://github.com/twrackers/OneShot-library](https://github.com/twrackers/OneShot-library "https://github.com/twrackers/OneShot-library").  This library uses the `StateMachine` library (above).
 
-Support for the ENC28J60 Ethernet module is part of the `UIPEthernet` library, available on GitHub at [https://github.com/UIPEthernet/UIPEthernet](https://github.com/UIPEthernet/UIPEthernet "https://github.com/UIPEthernet/UIPEthernet").
+- My `Pulse` library is also on GitHub, located at [https://github.com/twrackers/Pulse-library](https://github.com/twrackers/Pulse-library "https://github.com/twrackers/Pulse-library").  This library uses the `OneShot` library (above).
+
+- The lowest level interface to the MCP23017 port expander devices is the `Adafruit_MCP23017` library which is available on GitHub at [https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library](https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library "https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library").
+
+- Support for the ENC28J60 Ethernet module is part of the `UIPEthernet` library, available on GitHub at [https://github.com/UIPEthernet/UIPEthernet](https://github.com/UIPEthernet/UIPEthernet "https://github.com/UIPEthernet/UIPEthernet").
